@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import backgroundImage from 'figma:asset/dd4c7adb3f66293711f9524c9fad65fe3ae8ea83.png';
+import backgroundImage from "../assets/iPad-Background.png";
 
 export default function App() {
   const video1Ref = useRef<HTMLVideoElement>(null);
