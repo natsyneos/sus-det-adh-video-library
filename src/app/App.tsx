@@ -1,33 +1,14 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import backgroundImage from "../assets/iPad-Background.png";
 
+const VIDEOS = {
+  mod: '1sdm5ev81y',
+  jessica: 'oh4fj045uf',
+};
+
 export default function App() {
-  const video1Ref = useRef<HTMLVideoElement>(null);
-  const video2Ref = useRef<HTMLVideoElement>(null);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-
-  const handleVideoClick = async (videoRef: React.RefObject<HTMLVideoElement>) => {
-    if (videoRef.current) {
-      try {
-        // First play the video
-        await videoRef.current.play();
-        // Then request fullscreen
-        await videoRef.current.requestFullscreen();
-      } catch (err) {
-        console.error('Error attempting to play video in fullscreen:', err);
-        // Fallback: just play the video if fullscreen fails
-        if (videoRef.current.paused) {
-          videoRef.current.play().catch(e => console.error('Play error:', e));
-        }
-      }
-    }
-  };
-
-  const handleFullscreenChange = (videoRef: React.RefObject<HTMLVideoElement>) => {
-    if (videoRef.current && !document.fullscreenElement) {
-      videoRef.current.pause();
-    }
-  };
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
 
   const getCardStyle = (cardNumber: number) => ({
     width: '45%',
@@ -45,7 +26,7 @@ export default function App() {
   });
 
   return (
-    <div style={{ 
+    <div style={{
       fontFamily: "'Plus Jakarta Sans', sans-serif",
       display: 'flex',
       alignItems: 'center',
@@ -120,11 +101,11 @@ export default function App() {
             marginTop: '-44px'
           }}>
             {/* Card 1 - Mechanism of Disease */}
-            <div 
+            <div
               style={getCardStyle(1)}
               onMouseEnter={() => setHoveredCard(1)}
               onMouseLeave={() => setHoveredCard(null)}
-              onClick={() => handleVideoClick(video1Ref)}
+              onClick={() => setActiveVideo(VIDEOS.mod)}
             >
               {/* Gradient overlay on hover */}
               {hoveredCard === 1 && (
@@ -139,26 +120,19 @@ export default function App() {
                   borderRadius: '14px'
                 }} />
               )}
-              
+
               {/* Video Thumbnail */}
-              <div 
-                style={{
-                  position: 'relative',
-                  width: '100%',
-                  paddingBottom: '56.25%', // 16:9 ratio
-                  backgroundColor: 'rgba(255, 255, 255, 0.07)',
-                  borderRadius: '8px',
-                  marginBottom: '20px',
-                  cursor: 'pointer',
-                  overflow: 'hidden'
-                }}
-              >
-                <video 
-                  ref={video1Ref}
-                  src="mod.mp4"
-                  controls
-                  playsInline
-                  onFullscreenChange={() => handleFullscreenChange(video1Ref)}
+              <div style={{
+                position: 'relative',
+                width: '100%',
+                paddingBottom: '56.25%',
+                borderRadius: '8px',
+                marginBottom: '20px',
+                overflow: 'hidden'
+              }}>
+                <img
+                  src="https://embed-ssl.wistia.com/deliveries/a8ffc07c5daf6b5297554348618e6c30.jpg?image_crop_resized=960x542"
+                  alt="Mechanism of Disease thumbnail"
                   style={{
                     position: 'absolute',
                     top: 0,
@@ -220,16 +194,16 @@ export default function App() {
                 position: 'relative',
                 zIndex: 1
               }}>
-                Watch our Autosomal Dominant Hypocalcemia Type 1 (ADH1) Mechanism of Disease video.
+                Watch our autosomal dominant hypocalcemia type 1 (ADH1) mechanism of disease video.
               </div>
             </div>
 
             {/* Card 2 - Jessica's Story */}
-            <div 
+            <div
               style={getCardStyle(2)}
               onMouseEnter={() => setHoveredCard(2)}
               onMouseLeave={() => setHoveredCard(null)}
-              onClick={() => handleVideoClick(video2Ref)}
+              onClick={() => setActiveVideo(VIDEOS.jessica)}
             >
               {/* Gradient overlay on hover */}
               {hoveredCard === 2 && (
@@ -246,24 +220,17 @@ export default function App() {
               )}
 
               {/* Video Thumbnail */}
-              <div 
-                style={{
-                  position: 'relative',
-                  width: '100%',
-                  paddingBottom: '56.25%', // 16:9 ratio
-                  backgroundColor: 'rgba(255, 255, 255, 0.07)',
-                  borderRadius: '8px',
-                  marginBottom: '20px',
-                  cursor: 'pointer',
-                  overflow: 'hidden'
-                }}
-              >
-                <video 
-                  ref={video2Ref}
-                  src="jessica.mp4"
-                  controls
-                  playsInline
-                  onFullscreenChange={() => handleFullscreenChange(video2Ref)}
+              <div style={{
+                position: 'relative',
+                width: '100%',
+                paddingBottom: '56.25%',
+                borderRadius: '8px',
+                marginBottom: '20px',
+                overflow: 'hidden'
+              }}>
+                <img
+                  src="https://embed-ssl.wistia.com/deliveries/256781751faf6405fa1467b16a1d6274.jpg?image_crop_resized=960x480"
+                  alt="Jessica's Story thumbnail"
                   style={{
                     position: 'absolute',
                     top: 0,
@@ -341,6 +308,68 @@ export default function App() {
           </div>
         </div>
       </div>
+
+      {/* Wistia Video Modal */}
+      {activeVideo && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.92)',
+            zIndex: 1000,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+          onClick={() => setActiveVideo(null)}
+        >
+          <div
+            style={{
+              position: 'relative',
+              width: '90vw',
+              maxWidth: '1200px',
+              aspectRatio: '16 / 9'
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <iframe
+              src={`https://fast.wistia.net/embed/iframe/${activeVideo}?autoPlay=1&fitStrategy=fill&fullscreenButton=true`}
+              allowFullScreen
+              allow="autoplay; fullscreen"
+              style={{
+                width: '100%',
+                height: '100%',
+                border: 'none',
+                borderRadius: '8px'
+              }}
+            />
+          </div>
+          {/* Close button */}
+          <button
+            onClick={() => setActiveVideo(null)}
+            style={{
+              position: 'absolute',
+              top: '24px',
+              right: '24px',
+              width: '44px',
+              height: '44px',
+              borderRadius: '50%',
+              backgroundColor: 'rgba(255,255,255,0.15)',
+              border: '1px solid rgba(255,255,255,0.3)',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: 0
+            }}
+          >
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <line x1="1" y1="1" x2="13" y2="13" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+              <line x1="13" y1="1" x2="1" y2="13" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+            </svg>
+          </button>
+        </div>
+      )}
     </div>
   );
 }
