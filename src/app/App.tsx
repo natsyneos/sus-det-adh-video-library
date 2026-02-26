@@ -190,11 +190,10 @@ export default function App() {
                 fontWeight: 400,
                 color: 'rgba(255, 255, 255, 0.65)',
                 lineHeight: '1.5',
-                minHeight: '46px',
                 position: 'relative',
                 zIndex: 1
               }}>
-                Watch our autosomal dominant hypocalcemia type 1 (ADH1) mechanism of disease video.
+                Explore the underlying disease mechanism of ADH1.
               </div>
             </div>
 
@@ -288,7 +287,6 @@ export default function App() {
                 fontWeight: 400,
                 color: 'rgba(255, 255, 255, 0.65)',
                 lineHeight: '1.5',
-                minHeight: '46px',
                 position: 'relative',
                 zIndex: 1
               }}>
@@ -299,12 +297,16 @@ export default function App() {
 
           {/* Legal Footer */}
           <div style={{
-            textAlign: 'center',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
             fontSize: '12px',
             color: 'rgba(255, 255, 255, 0.5)',
-            padding: '16px 0'
+            padding: '16px 0',
+            margin: '0 -40px'
           }}>
-            ©2026 BridgeBio Pharma, Inc. All rights reserved. MAT-US-ECLTX-XXXX
+            <div>ADH1=Autosomal dominant hypocalcemia type 1.</div>
+            <div>©2026 BridgeBio Pharma, Inc. All rights reserved. MAT-US-ECLTX-XXXX</div>
           </div>
         </div>
       </div>
