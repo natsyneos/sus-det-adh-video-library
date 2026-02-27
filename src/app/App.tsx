@@ -290,7 +290,7 @@ export default function App() {
                 position: 'relative',
                 zIndex: 1
               }}>
-                Watch Jessica talk about her experience living with ADH1.
+                Experience Jessica's story about living with ADH1.
               </div>
             </div>
           </div>
@@ -306,72 +306,71 @@ export default function App() {
             margin: '0 -40px'
           }}>
             <div>ADH1=Autosomal dominant hypocalcemia type 1.</div>
-            <div>©2026 BridgeBio Pharma, Inc. All rights reserved. MAT-US-ECLTX-XXXX</div>
+            <div>©2026 BridgeBio Pharma, Inc. All rights reserved. MAT-US-ECLTX-0117</div>
           </div>
         </div>
-      </div>
 
-      {/* Wistia Video Modal */}
-      {activeVideo && (
-        <div
-          style={{
-            position: 'fixed',
-            inset: 0,
-            backgroundColor: 'rgba(0, 0, 0, 0.92)',
-            zIndex: 1000,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
-          onClick={() => setActiveVideo(null)}
-        >
+        {/* Wistia Video Modal — inside iPad frame so it's constrained to 1366×1024 */}
+        {activeVideo && (
           <div
             style={{
-              position: 'relative',
-              width: '90vw',
-              maxWidth: '1200px',
-              aspectRatio: '16 / 9'
-            }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <iframe
-              src={`https://fast.wistia.net/embed/iframe/${activeVideo}?autoPlay=1&fitStrategy=fill&fullscreenButton=true`}
-              allowFullScreen
-              allow="autoplay; fullscreen"
-              style={{
-                width: '100%',
-                height: '100%',
-                border: 'none',
-                borderRadius: '8px'
-              }}
-            />
-          </div>
-          {/* Close button */}
-          <button
-            onClick={() => setActiveVideo(null)}
-            style={{
               position: 'absolute',
-              top: '24px',
-              right: '24px',
-              width: '44px',
-              height: '44px',
-              borderRadius: '50%',
-              backgroundColor: 'rgba(255,255,255,0.15)',
-              border: '1px solid rgba(255,255,255,0.3)',
-              cursor: 'pointer',
+              inset: 0,
+              backgroundColor: 'rgba(0, 0, 0, 0.92)',
+              zIndex: 1000,
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center',
-              padding: 0
+              justifyContent: 'center'
             }}
+            onClick={() => setActiveVideo(null)}
           >
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <line x1="1" y1="1" x2="13" y2="13" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-              <line x1="13" y1="1" x2="1" y2="13" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-            </svg>
-          </button>
-        </div>
-      )}
+            <div
+              style={{
+                position: 'relative',
+                width: 'calc(100% - 48px)',
+                aspectRatio: '16 / 9'
+              }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <iframe
+                src={`https://fast.wistia.net/embed/iframe/${activeVideo}?autoPlay=1&fitStrategy=fill&fullscreenButton=true`}
+                allowFullScreen
+                allow="autoplay; fullscreen"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  border: 'none',
+                  borderRadius: '8px'
+                }}
+              />
+            </div>
+            {/* Close button */}
+            <button
+              onClick={() => setActiveVideo(null)}
+              style={{
+                position: 'absolute',
+                top: '24px',
+                right: '24px',
+                width: '44px',
+                height: '44px',
+                borderRadius: '50%',
+                backgroundColor: 'rgba(255,255,255,0.15)',
+                border: '1px solid rgba(255,255,255,0.3)',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: 0
+              }}
+            >
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="1" y1="1" x2="13" y2="13" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+                <line x1="13" y1="1" x2="1" y2="13" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
